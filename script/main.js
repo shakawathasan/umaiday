@@ -9,10 +9,26 @@ window.addEventListener('load', () => {
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
     }).then((result) => {
-        if (result.isConfirmed) {            
+        if (result.isConfirmed) {
+            // If "Yes" is clicked, proceed
             animationTimeline();
         } else {
-            animationTimeline();
+            // If "No" is clicked, stay on warning screen
+            Swal.fire({
+                title: 'Are you sure you want to stay?',
+                icon: 'warning',
+                confirmButtonColor: '#AD9DD1',
+                cancelButtonColor: '#F7B7E7',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    animationTimeline();
+                } else {
+                    window.location.reload(); // Keeps showing the warning until "Yes" is clicked
+                }
+            });
         }
     });
 });
